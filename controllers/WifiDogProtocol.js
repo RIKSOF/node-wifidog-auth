@@ -23,9 +23,13 @@ protocol.setup = function( app, gateways ) {
 	 */
 	app.get( '/ping', function( req, res ) {
     
+    // Get the moment now
+    var moment = require( 'moment' );
+    var now = moment();
+    
     // Update the server information
     gateways.set( req.query.gw_id, req.query.sys_uptime, req.query.sys_memfree, 
-      req.query.sys_load, req.query.wifidog_uptime, 0 );
+      req.query.sys_load, req.query.wifidog_uptime, Math.floor( now.format( 'x' ) ) );
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
       console.log( 'Registered gateways: ' + JSON.stringify( gateways.getAll() ));
