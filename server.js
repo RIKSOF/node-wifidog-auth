@@ -14,9 +14,12 @@ var logger = require( __dirname + '/services/logger' );
 var express = require( 'express' );
 var app = express();
 
+// Initialize the models.
+var gateways = require( __dirname + '/models/Gateways.js' );
+
 // Configure all controllers for this application
 var protocol = require( __dirname + '/controllers/WifiDogProtocol.js' );
-protocol.setup( app );
+protocol.setup( app, gateways );
 
 // Start the http server
 var httpServer;
