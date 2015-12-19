@@ -1,0 +1,10 @@
+{
+  "name": "node-wifidog-auth",
+  "description": "Basic auth server implementation for wifidog. Built using Node.js",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "express": "3.4.0",
+    "winston": "0.7.2",
+	}
+}
