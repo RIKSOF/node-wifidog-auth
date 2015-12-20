@@ -32,8 +32,12 @@ config.google.callbackURL = "http://yourdomain.com:3001/auth/google/callback";
 
 // Timeouts in milliseconds
 config.timeouts = {}
-config.timeouts.validation = 30000;
-config.timeouts.expiration = 100000;
+config.timeouts.validation = 300000;
+config.timeouts.expiration = 10800000;
+
+// User Access
+config.access = {}
+config.access.allowedDomain = "@riksof.com";
 
 // Make the configuration parameters available.
 module.exports = config;
