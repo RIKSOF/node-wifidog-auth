@@ -54,7 +54,7 @@ google.setup = function( app, gateways, clients ) {
    * redirecting the user to google.com.  After authorization, Google
    * will redirect the user back to this application at /auth/google/callback
    */
-  app.get('/portal',
+  app.get('/auth/google/login',
     passport.authenticate('google', { scope: ['email'], session: false }),
       function(req, res) {
         // The request will be redirected to Google for authentication, so this

@@ -51,4 +51,34 @@ wifidog.setup = function( app, gateways, clients ) {
     // Register token with gateway
     res.redirect( 'http://' + req.query.gw_address + ':' + req.query.gw_port + '/wifidog/auth?token=' + token );
   });
+  
+  /**
+   * Gateway redirects to this action when there is an authentication error.
+   */
+	app.get( '/gw_message.php', function( req, res ) {
+    // Get the client IP
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    
+    // If we have the client, send its information. Otherwise send information
+    // that is generated now.
+    var c = clients.get( ip );
+    
+    // Get the moment now
+    var moment = require( 'moment' );
+    var now = moment();
+    
+    if ( c ) {
+      switch( req.query.message ) {
+      case 'denied':
+      case 'failed_validation':
+        clients.set( ip, c.token, c.gwid, Math.floor( now.format( 'x' ) ) );
+      case 'activate':
+        res.redirect( '/auth/google/login' );
+        break;
+      }
+    }
+    
+    res.send( 'Access Denied!' );
+  });
+   
 }
