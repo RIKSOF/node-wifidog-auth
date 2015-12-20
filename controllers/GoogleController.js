@@ -12,7 +12,7 @@ google = module.exports = {};
  * it to handle errors.
  */
 google.setup = function( app, gateways, clients ) {
-
+  
   // Get the configurations
   var config = require(__dirname + '/../config');
 
@@ -21,6 +21,13 @@ google.setup = function( app, gateways, clients ) {
 
   // Configure passport
   passport = require('passport');
+
+  /**
+   * If string ends with passed suffix.
+   */
+  String.prototype.endsWith = function( suffix ) {
+      return this.indexOf(suffix, this.length - suffix.length) !== -1;
+  };
 
   /**
    * Configure the Google Strategy.
@@ -42,9 +49,14 @@ google.setup = function( app, gateways, clients ) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
       
-      console.log( JSON.stringify( profile.emails ) );
+      for ( var i = 0; i < profile.emails.length; i++ ) {
+        var e = profile.emails[i];
+        if ( e.value.endsWith( config.access.allowedDomain ) ) {
+          return done( null, profile );
+        }
+      }
       
-      return done( null, profile );
+      return done( null, false );
     });
   }));
   
@@ -72,8 +84,8 @@ google.setup = function( app, gateways, clients ) {
    * before being interrupted to login.
    */
   app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  passport.authenticate('google', { failureRedirect: '/gw_message.php?message=denied', session: false }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('http://www.riksof.com');
   });
 }

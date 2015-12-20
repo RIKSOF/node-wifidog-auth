@@ -63,8 +63,6 @@ protocol.setup = function( app, gateways, clients ) {
       switch ( auth ) {
       case clients.AUTH_TYPES.AUTH_VALIDATION:
         // Did we timeout?
-        console.log( 'Now: ' + nowInSeconds );
-        console.log( 'Last Ping: ' + c.lastPingTime );
         if ( nowInSeconds > c.lastPingTime + config.timeouts.validation ) {
           clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_VALIDATION_FAILED );
           auth = clients.AUTH_TYPES.AUTH_VALIDATION_FAILED
