@@ -10,6 +10,15 @@ clients = module.exports = {};
 // Initialize a list of clients.
 clients.list = {};
 
+// Authenication Types.
+clients.AUTH_TYPES = {
+  AUTH_DENIED: 0,
+  AUTH_VALIDATION_FAILED: 6,
+  AUTH_ALLOWED: 1,
+  AUTH_VALIDATION: 5,
+  AUTH_ERROR: -1
+}
+
 /**
  * Get details of a client based on its IP.
  *
@@ -28,12 +37,15 @@ clients.get = function( client_ip ) {
  * @param last_ping Last we hear from this client.
  */
 clients.set = function( client_ip, token, gw_id, last_ping ) {
-  clients.list[ client_ip ] = {
-    clientIP: client_ip,
-    token: token,
-    gwid: gw_id, 
-    lastPingTime: last_ping
+  if ( !clients.list[ client_ip ] ) {
+    clients.list[ client_ip ] = {}
   }
+  
+  var c = clients.list[ client_ip ];
+  c.clientIP = client_ip;
+  c.token = token;
+  c.gwid = gw_id; 
+  c.lastPingTime = last_ping;
 }
 
 /**
@@ -48,13 +60,27 @@ clients.set = function( client_ip, token, gw_id, last_ping ) {
  * @param last_ping Last we hear from this client.
  */
 clients.setStatistical = function( client_ip, stage, mac, incoming, outgoing, last_ping ) {
-  clients.list[ client_ip ] = {
-    clientIP: client_ip,
-    stage: stage,
-    mac: mac,
-    incoming: incoming,
-    outgoing: outgoing,
-    lastPingTime: last_ping
+  var c = clients.list[ client_ip ];
+  if ( c ) {
+    c.clientIP = client_ip;
+    c.stage = stage;
+    c.mac = mac;
+    c.incoming = incoming;
+    c.outgoing = outgoing;
+    c.lastPingTime = last_ping;
+  }
+}
+
+/**
+ * Update authentication for this client.
+ *
+ * @param client_ip IP of the client.
+ * @param auth Auth type
+ */
+clients.setAuthType = function( client_ip, auth ) {
+  var c = clients.list[ client_ip ];
+  if (  c ) {
+    c.auth = auth;
   }
 }
 
@@ -63,4 +89,13 @@ clients.setStatistical = function( client_ip, stage, mac, incoming, outgoing, la
  */
 clients.getAll = function( ) {
   return clients.list;
+}
+
+/**
+ * Remove a client
+ *
+ * @param client_ip  IP of the client
+ */
+clients.remove = function( client_ip ) {
+  delete clients.list[ client_ip ];
 }

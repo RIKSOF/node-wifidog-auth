@@ -41,21 +41,54 @@ protocol.setup = function( app, gateways, clients ) {
   });
   
 	/**
-	 * Receive ping from the gateway. Respond with a pong.
+	 * Used to verify to a gateway that the given client is authenitcated.
 	 */
 	app.get( '/auth', function( req, res ) {
+    
+    // By default we deny authentication.
+    var auth = clients.AUTH_TYPES.AUTH_DENIED;
     
     // Get the moment now
     var moment = require( 'moment' );
     var now = moment();
+    var nowInSeconds = Math.floor( now.format( 'x' ) );
     
-    // Update the server information
-    clients.setStatistical( req.query.ip, req.query.stage, req.query.mac, 
-      req.query.incoming, req.query.outgoing, Math.floor( now.format( 'x' ) ) );
+    // Which client?
+    var c = clients.get( req.query.ip );
+    
+    // If we have the client
+    if ( c ) {
+      auth = c.auth;
+      
+      switch ( auth ) {
+      case clients.AUTH_TYPES.AUTH_VALIDATION:
+        // Did we timeout?
+        console.log( 'Now: ' + nowInSeconds );
+        console.log( 'Last Ping: ' + c.lastPingTime );
+        if ( nowInSeconds > c.lastPingTime + config.timeouts.validation ) {
+          clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_VALIDATION_FAILED );
+          auth = clients.AUTH_TYPES.AUTH_VALIDATION_FAILED
+        }
+        
+        break;
+      case clients.AUTH_TYPES.AUTH_ALLOWED:
+        // Did we timeout?
+        if ( nowInSeconds > c.lastPingTime + config.timeouts.expiration ) {
+          clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_DENIED );
+          auth = clients.AUTH_TYPES.AUTH_DENIED
+        } else {
+          // Update the server information
+          clients.setStatistical( req.query.ip, req.query.stage, req.query.mac, 
+            req.query.incoming, req.query.outgoing, nowInSeconds );
+        }
+          
+        break;
+      }
+    }
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
       console.log( 'Registered clients: ' + JSON.stringify( clients.getAll() ));
     
-    res.send( 'Auth: 0' );
+    res.send( 'Auth: ' + auth );
   });
 }
