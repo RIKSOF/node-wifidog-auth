@@ -11,7 +11,7 @@ protocol = module.exports = {};
  * Setup takes an express application server and configures
  * it to handle errors.
  */
-protocol.setup = function( app, gateways ) {
+protocol.setup = function( app, gateways, clients ) {
   // Get the configurations
   var config = require(__dirname + '/../config');
 
@@ -35,5 +35,24 @@ protocol.setup = function( app, gateways ) {
       console.log( 'Registered gateways: ' + JSON.stringify( gateways.getAll() ));
     
     res.send( 'Pong' );
+  });
+  
+	/**
+	 * Receive ping from the gateway. Respond with a pong.
+	 */
+	app.get( '/auth', function( req, res ) {
+    
+    // Get the moment now
+    var moment = require( 'moment' );
+    var now = moment();
+    
+    // Update the server information
+    clients.set( req.query.ip, req.query.stage, req.query.mac, req.query.token, '', 
+      req.query.incoming, req.query.outgoing, Math.floor( now.format( 'x' ) ) );
+    
+    if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
+      console.log( 'Registered clients: ' + JSON.stringify( clients.getAll() ));
+    
+    res.send( 'Auth: 0' );
   });
 }

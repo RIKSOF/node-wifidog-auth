@@ -13,7 +13,7 @@ gateways.list = {};
 /**
  * Get details of a gateway based on its id.
  *
- * @param gwid  ID of the gateway
+ * @param gw_id  ID of the gateway
  */
 gateways.get = function( gw_id ) {
   return gateways.list[ gw_id ];
@@ -22,11 +22,12 @@ gateways.get = function( gw_id ) {
 /**
  * Update or add a new gateways information.
  *
- * @param gwid ID of the gateway
+ * @param gw_id ID of the gateway
  * @param sys_uptime Uptime for it
  * @param sys_memfree Availabile memory
  * @param sys_load Load on the gateway
  * @param wifidog_uptime Time since wifidog is up.
+ * @param last_ping Last time we got a ping from this gateway.
  */
 gateways.set = function( gw_id, sys_uptime, sys_memfree, sys_load, wifidog_uptime, last_ping ) {
   gateways.list[ gw_id ] = {

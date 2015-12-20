@@ -16,10 +16,11 @@ var app = express();
 
 // Initialize the models.
 var gateways = require( __dirname + '/models/Gateways.js' );
+var clients = require( __dirname + '/models/Clients.js' );
 
 // Configure all controllers for this application
 var protocol = require( __dirname + '/api/WifiDogProtocol.js' );
-protocol.setup( app, gateways );
+protocol.setup( app, gateways, clients );
 
 // Start the http server
 var httpServer;
