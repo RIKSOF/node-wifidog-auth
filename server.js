@@ -18,7 +18,7 @@ var app = express();
 var gateways = require( __dirname + '/models/Gateways.js' );
 
 // Configure all controllers for this application
-var protocol = require( __dirname + '/controllers/WifiDogProtocol.js' );
+var protocol = require( __dirname + '/api/WifiDogProtocol.js' );
 protocol.setup( app, gateways );
 
 // Start the http server
