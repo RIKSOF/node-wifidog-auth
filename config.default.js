@@ -24,5 +24,10 @@ config.logger.consoleFile = __dirname + '/console.log';
 config.logger.maxFileSize = 1000000;
 config.logger.maxFiles = 1;
 
+// Google OAuth
+config.google = {}
+config.google.clientID = "Your ID Here";
+config.google.secret = "Your secret Here";
+
 // Make the configuration parameters available.
 module.exports = config;
