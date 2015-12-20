@@ -6,6 +6,8 @@
   "dependencies": {
     "express": "4.13.3",
     "winston": "2.1.1",
-    "moment": "2.10.6"
+    "moment": "2.10.6",
+    "passport": "0.3.2",
+    "passport-google-oauth": "0.2.0" 
 	}
 }

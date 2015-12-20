@@ -27,8 +27,11 @@ protocol.setup = function( app, gateways, clients ) {
     var moment = require( 'moment' );
     var now = moment();
     
+    // Get the ip of gateway
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    
     // Update the server information
-    gateways.set( req.query.gw_id, req.query.sys_uptime, req.query.sys_memfree, 
+    gateways.set( req.query.gw_id, ip, req.query.sys_uptime, req.query.sys_memfree, 
       req.query.sys_load, req.query.wifidog_uptime, Math.floor( now.format( 'x' ) ) );
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
@@ -47,7 +50,7 @@ protocol.setup = function( app, gateways, clients ) {
     var now = moment();
     
     // Update the server information
-    clients.set( req.query.ip, req.query.stage, req.query.mac, req.query.token, '', 
+    clients.setStatistical( req.query.ip, req.query.stage, req.query.mac, 
       req.query.incoming, req.query.outgoing, Math.floor( now.format( 'x' ) ) );
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )

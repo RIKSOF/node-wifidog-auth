@@ -22,6 +22,12 @@ var clients = require( __dirname + '/models/Clients.js' );
 var protocol = require( __dirname + '/api/WifiDogProtocol.js' );
 protocol.setup( app, gateways, clients );
 
+var portal = require( __dirname + '/controllers/WifiDogController.js' );
+portal.setup( app, gateways, clients );
+
+var google = require( __dirname + '/controllers/GoogleController.js' );
+google.setup( app, gateways, clients );
+
 // Start the http server
 var httpServer;
 

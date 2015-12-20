@@ -23,22 +23,35 @@ clients.get = function( client_ip ) {
  * Update or add a new client's information.
  *
  * @param client_ip IP of the client
+ * @param token Token issued to the client
+ * @param gw_id ID of the gateway this client is associated with.
+ * @param last_ping Last we hear from this client.
+ */
+clients.set = function( client_ip, token, gw_id, last_ping ) {
+  clients.list[ client_ip ] = {
+    clientIP: client_ip,
+    token: token,
+    gwid: gw_id, 
+    lastPingTime: last_ping
+  }
+}
+
+/**
+ * Update statistical information on  a client.
+ *
+ * @param client_ip IP of the client
  * @param stage login or counters depending on whether client has access to network
  *              or waiting to login 
  * @param mac MAC address
- * @param token Token issued to the client
- * @param gw_id ID of the gateway this client is associated with.
  * @param incoming Counter for incoming traffic.
  * @param outgoing Counter for outgoing traffic.
  * @param last_ping Last we hear from this client.
  */
-clients.set = function( client_ip, stage, mac, token, gw_id, incoming, outgoing, last_ping ) {
+clients.setStatistical = function( client_ip, stage, mac, incoming, outgoing, last_ping ) {
   clients.list[ client_ip ] = {
     clientIP: client_ip,
     stage: stage,
     mac: mac,
-    token: token,
-    gwid: gw_id, 
     incoming: incoming,
     outgoing: outgoing,
     lastPingTime: last_ping
