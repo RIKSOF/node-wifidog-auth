@@ -86,6 +86,18 @@ google.setup = function( app, gateways, clients ) {
   app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/gw_message.php?message=denied', session: false }),
   function(req, res) {
+    
+    // Get the client IP
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    
+    // If we have the client, send its information. Otherwise send information
+    // that is generated now.
+    var c = clients.get( ip );
+    
+    if ( c ) {
+      c.setAuthType ( clients.AUTH_TYPES.AUTH_ALLOWED );
+    }
+    
     res.redirect('http://www.riksof.com');
   });
 }

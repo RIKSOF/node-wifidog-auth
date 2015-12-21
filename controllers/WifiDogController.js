@@ -35,6 +35,8 @@ wifidog.setup = function( app, gateways, clients ) {
     // that is generated now.
     var c = clients.get( ip );
     
+    console.log( 'Login with IP: ' + ip );
+    
     if ( !c ) {
       // Generate a token for this client
       var crypt = require('crypto');
@@ -67,6 +69,8 @@ wifidog.setup = function( app, gateways, clients ) {
     var moment = require( 'moment' );
     var now = moment();
     
+    console.log( 'IP: ' + ip + ', GW-Message: ' + req.query.message );
+    
     if ( c ) {
       switch( req.query.message ) {
       case 'denied':
@@ -76,9 +80,9 @@ wifidog.setup = function( app, gateways, clients ) {
         res.redirect( '/auth/google/login' );
         break;
       }
+    } else {    
+      res.send( 'Access Denied!' );
     }
-    
-    res.send( 'Access Denied!' );
   });
    
 }
