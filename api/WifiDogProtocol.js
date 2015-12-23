@@ -87,7 +87,7 @@ protocol.setup = function( app, gateways, clients ) {
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
       console.log( 'Registered clients: ' + JSON.stringify( clients.getAll() ));
     
-    console.log( 'IP' : + req.query.ip + ', Auth: ' + auth );
+    console.log( 'IP: ' + req.query.ip + ', Auth: ' + auth );
     
     res.send( 'Auth: ' + auth );
   });
