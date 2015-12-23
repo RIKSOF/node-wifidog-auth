@@ -95,7 +95,7 @@ google.setup = function( app, gateways, clients ) {
     var c = clients.get( ip );
     
     if ( c ) {
-      c.setAuthType ( clients.AUTH_TYPES.AUTH_ALLOWED );
+      clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );
     }
     
     res.redirect('http://www.riksof.com');
