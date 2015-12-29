@@ -42,7 +42,7 @@ panel.setup = function( app, gateways, clients ) {
 	/**
 	 * Receive request to set status of a single client.
 	 */
-	app.get( '/client/activate', function( req, res ) {
+	app.get( '/clients/activate', function( req, res ) {
     
     // Get the client IP
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -60,7 +60,7 @@ panel.setup = function( app, gateways, clients ) {
       
       // If exists client
       if ( c ) {
-        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_ALLOWED );
+        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_VALIDATION );
         res.json( { status: 'OK' } );
       } else {
         res.json( { status: 'Not Found' } );
