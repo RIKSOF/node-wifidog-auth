@@ -25,6 +25,9 @@ protocol.setup( app, gateways, clients );
 var portal = require( __dirname + '/controllers/WifiDogController.js' );
 portal.setup( app, gateways, clients );
 
+var panel = require( __dirname + '/controllers/PanelController.js' );
+panel.setup( app, gateways, clients );
+
 var google = require( __dirname + '/controllers/GoogleController.js' );
 google.setup( app, gateways, clients );
 
