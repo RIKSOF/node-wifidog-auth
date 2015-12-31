@@ -85,6 +85,19 @@ clients.setAuthType = function( client_ip, auth ) {
 }
 
 /**
+ * Update last ping time.
+ *
+ * @param client_ip IP of the client.
+ * @param last_ping Update last ping.
+ */
+clients.setLastPing = function( client_ip, last_ping ) {
+  var c = clients.list[ client_ip ];
+  if (  c ) {
+    c.lastPingTime = last_ping;
+  }
+}
+
+/**
  * Update email for this client.
  *
  * @param client_ip IP of the client.
