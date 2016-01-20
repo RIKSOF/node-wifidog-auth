@@ -98,6 +98,6 @@ google.setup = function( app, gateways, clients ) {
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );
     }
     
-    res.redirect('http://www.riksof.com');
+    res.redirect('https://riksof.slack.com');
   });
 }
