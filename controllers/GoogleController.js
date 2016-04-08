@@ -96,6 +96,9 @@ google.setup = function( app, gateways, clients ) {
     
     if ( c ) {
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );
+      
+      // Save changes
+      clients.save();
     }
     
     res.redirect('https://riksof.slack.com');

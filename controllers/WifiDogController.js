@@ -45,6 +45,9 @@ wifidog.setup = function( app, gateways, clients ) {
       // Update the client information
       clients.set( ip, token, req.query.gw_id, Math.floor( now.format( 'x' ) ) );
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_VALIDATION );
+      
+      // Save changes
+      clients.save();
     }
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
@@ -80,6 +83,9 @@ wifidog.setup = function( app, gateways, clients ) {
         res.redirect( '/auth/google/login' );
         break;
       }
+      
+      // Save changes
+      clients.save();
     } else {    
       res.send( 'Access Denied!' );
     }

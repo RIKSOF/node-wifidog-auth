@@ -7,6 +7,7 @@ var config = {}
 
 // Application Information
 config.app = {}
+config.app.data = __dirname + '/clients.txt';
 config.app.mode = {}
 config.app.mode.DEVELOPMENT = 'development';
 config.app.mode.PRODUCTION = 'production';
@@ -35,9 +36,11 @@ config.timeouts = {}
 config.timeouts.validation = 300000;
 config.timeouts.expiration = 10800000;
 
-// User Access
+// Access
 config.access = {}
 config.access.allowedDomain = "@riksof.com";
+config.access.allowedMacs = [ 
+]
 
 // Make the configuration parameters available.
 module.exports = config;

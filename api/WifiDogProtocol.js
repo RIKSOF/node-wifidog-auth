@@ -83,6 +83,9 @@ protocol.setup = function( app, gateways, clients ) {
           
         break;
       }
+      
+      // Save state
+      clients.save();
     }
     
     if ( config.app.mode.current == config.app.mode.DEVELOPMENT )

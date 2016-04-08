@@ -125,3 +125,41 @@ clients.getAll = function( ) {
 clients.remove = function( client_ip ) {
   delete clients.list[ client_ip ];
 }
+
+/**
+ * Save list to file.
+ */
+clients.save = function( ) {
+  // Get the configurations
+  var config = require(__dirname + '/../config');
+  
+  var d = JSON.stringify( clients.list );
+  
+  // Write this to file.
+  var fs = require('fs');
+  fs.writeFile( config.app.data, d, function(err) {
+    if ( err ) {
+      console.log( err );
+    }
+    console.log("The file was saved!");
+  }); 
+}
+
+/**
+ * Read data from file.
+ */
+clients.load = function( ) {
+  // Get the configurations
+  var config = require(__dirname + '/../config');
+  
+  var fs = require( 'fs' );
+  
+  fs.readFile( config.app.data, 'utf8', function (err, data) {
+    if (err) {
+      console.log( err );
+    } else {
+      clients.list = JSON.parse(data);
+      console.log( 'File read!' );
+    }
+  });
+}

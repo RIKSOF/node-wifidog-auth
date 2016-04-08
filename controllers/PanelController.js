@@ -60,12 +60,20 @@ panel.setup = function( app, gateways, clients ) {
       
       // If exists client
       if ( c ) {
-        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_VALIDATION );
+        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_ALLOWED );
+        
+        // Get the moment now and set it for user's time in.
+        var moment = require( 'moment' );
+        var now = moment();
+        
+        clients.setLastPing( req.query.ip, Math.floor( now.format( 'x' ) ) );
         res.json( { status: 'OK' } );
       } else {
         res.json( { status: 'Not Found' } );
       }
       
+      // Save changes
+      clients.save();
     } else {
       res.json( { status: 'Access Denied' } );
     }
