@@ -103,10 +103,11 @@ clients.setLastPing = function( client_ip, last_ping ) {
  * @param client_ip IP of the client.
  * @param email Email
  */
-clients.setEmail = function( client_ip, email ) {
+clients.setEmail = function( client_ip, email, name ) {
   var c = clients.list[ client_ip ];
   if (  c ) {
     c.email = email;
+    c.name = name;
   }
 }
 

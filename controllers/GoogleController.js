@@ -96,6 +96,7 @@ google.setup = function( app, gateways, clients ) {
     
     if ( c ) {
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );
+      clients.setEmail( ip, req.user[0].value, req.user.displayName );
       
       // Save changes
       clients.save();
