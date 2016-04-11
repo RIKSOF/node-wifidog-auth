@@ -119,6 +119,19 @@ clients.getAll = function( ) {
 }
 
 /**
+ * Get details of all clients.
+ */
+clients.getArray = function( ) {
+  var a = []
+  
+  for (var key in clients.list) {
+    a.push( clients.list[ key ] );
+  }
+  
+  return a;
+}
+
+/**
  * Remove a client
  *
  * @param client_ip  IP of the client

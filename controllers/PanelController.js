@@ -22,7 +22,7 @@ panel.setup = function( app, gateways, clients ) {
 	/**
 	 * Receive request to get list of all clients.
 	 */
-	app.get( '/clients', function( req, res ) {
+	app.get( '/api/clients', function( req, res ) {
     
     // Get the client IP
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -33,7 +33,7 @@ panel.setup = function( app, gateways, clients ) {
     var c = clients.get( ip );
     
     if ( c && c.auth == clients.AUTH_TYPES.AUTH_ALLOWED ) {
-      res.json( clients.getAll() );
+      res.json( clients.getArray() );
     } else {
       res.json( { status: 'Access Denied' } );
     }
@@ -42,7 +42,7 @@ panel.setup = function( app, gateways, clients ) {
 	/**
 	 * Receive request to set status of a single client.
 	 */
-	app.get( '/clients/activate', function( req, res ) {
+	app.get( '/api/clients/activate', function( req, res ) {
     
     // Get the client IP
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

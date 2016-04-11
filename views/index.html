@@ -1,0 +1,17 @@
+<html ng-app="app">  
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>RIKSOF - Wifi Clients</title>  
+        <link rel="stylesheet" type="text/css" href="/libs/angular-ui-grid/ui-grid.css" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <script type="text/javascript" src="/libs/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/libs/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/libs/angular-ui-grid/ui-grid.min.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
+    </head>
+    <body>
+        <div ng-controller="MainCtrl">
+          <div ui-grid="gridOptions" class="grid" ui-grid-infinite-scroll></div>
+        </div>
+    </body>
+</html>

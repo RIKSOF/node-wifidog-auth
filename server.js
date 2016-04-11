@@ -34,6 +34,9 @@ panel.setup( app, gateways, clients );
 var google = require( __dirname + '/controllers/GoogleController.js' );
 google.setup( app, gateways, clients );
 
+var content = require( __dirname + '/controllers/StaticContentServer.js' );
+content.setup( app, express );
+
 // Start the http server
 var httpServer;
 

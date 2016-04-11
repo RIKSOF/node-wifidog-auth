@@ -1,0 +1,25 @@
+{
+  "name": "node-wifidog-auth",
+  "version": "0.1.0",
+  "homepage": "https://github.com/RIKSOF/node-wifidog-auth",
+  "authors": [
+    "Khurram Ali <khurram.ali@riksof.com>"
+  ],
+  "description": "Client to manage logged in users",
+  "main": "main.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-grid": "~3.1.1",
+    "jquery": "~2.2.3"
+  }
+}
