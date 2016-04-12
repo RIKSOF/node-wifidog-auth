@@ -50,9 +50,6 @@ wifidog.setup = function( app, gateways, clients ) {
       clients.save();
     }
     
-    if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
-      console.log( 'Registered clients: ' + JSON.stringify( clients.getAll() ));
-    
     // Register token with gateway
     res.redirect( 'http://' + req.query.gw_address + ':' + req.query.gw_port + '/wifidog/auth?token=' + token );
   });
