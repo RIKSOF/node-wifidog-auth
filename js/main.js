@@ -1,10 +1,18 @@
 var app = angular.module('app', ['ui.grid']);
 
-app.controller('MainCtrl', ['$scope', '$http', function ( $scope, $http ) {
-  $http.get( '/api/clients')
+app.controller('MainCtrl', ['$scope', '$http', '$interval', function ( $scope, $http, $interval ) {
+  
+  $interval( function () {
+    $http.get( '/api/clients')
     .then(function(response) {
       $scope.data = response.data;
     });
+  }, 5000);
+  
+  $http.get( '/api/clients')
+  .then(function(response) {
+    $scope.data = response.data;
+  });
     
   $scope.showState = function( s ) {
     var state = [ 'None', 'Active', '', '', '', 'Login', 'Denied' ];
@@ -13,10 +21,14 @@ app.controller('MainCtrl', ['$scope', '$http', function ( $scope, $http ) {
   }
   
   $scope.showTime = function( t ) {
-    var d = new Date( t ); 
-    var str = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear() + ' ' +
-    d.getHours() + ':' + d.getMinutes();  
-    console.log(str);
+    var str = '';
+    
+    if ( t > 0 ) {
+      var d = new Date( t ); 
+      str = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear() + ' ' +
+      d.getHours() + ':' + d.getMinutes();    
+    }
+    
     return str;
   }
  
