@@ -57,8 +57,10 @@ protocol.setup = function( app, gateways, clients ) {
     if ( c ) {
       
       // Is this mac in the allowed list? If so we override the authentication.
-      if ( config.access.allowedMacs[ req.query.mac ] == true ) {
+      if ( config.access.allowedMacs[ req.query.mac ] ) {
         c.auth = clients.AUTH_TYPES.AUTH_ALLOWED;
+        
+        clients.setEmail( req.query.ip, '', config.access.allowedMacs[ req.query.mac ] );
       }
       
       auth = c.auth;
