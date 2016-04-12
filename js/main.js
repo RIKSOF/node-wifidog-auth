@@ -26,8 +26,8 @@ app.controller('MainCtrl', ['$scope', '$http', function ( $scope, $http ) {
       { name:'email'},
       { name:'clientIP'},
       { name:'gwid' },
-      { name:'loginTime', cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showTime( row.entity.lastPingTime )}}</div>' },
-      { name:'lastLogOutTime', cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showTime( row.entity.lastPingTime )}}</div>' },
+      { name:'loginTime', cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showTime( row.entity.loginTime )}}</div>' },
+      { name:'lastLogOutTime', cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showTime( row.entity.lastLogOutTime )}}</div>' },
       { name: 'data', cellTemplate:'<div class="ui-grid-cell-contents">{{ (((row.entity.incoming ) / ( 1024 * 1024)) + ((row.entity.outgoing ) / ( 1024 * 1024))).toFixed(1) }} MB</div>'},
       { name:'lastPingTime', cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showTime( row.entity.lastPingTime )}}</div>' },
       { name:'auth', cellTemplate:'<a href="/api/clients/activate?ip={{ row.entity.clientIP }}" target="_blank" class="ui-grid-cell-contents">{{grid.appScope.showState( row.entity.auth )}}</a>' }

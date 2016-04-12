@@ -60,11 +60,19 @@ panel.setup = function( app, gateways, clients ) {
       
       // If exists client
       if ( c ) {
-        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_ALLOWED );
         
         // Get the moment now and set it for user's time in.
         var moment = require( 'moment' );
         var now = moment();
+        
+        // Make sure client was not authenticated before. If so, update their
+        // logout and login time.
+        if ( c.auth != clients.AUTH_TYPES.AUTH_ALLOWED ) {
+          clients.setLoginLogoutTimes( req.query.ip, Math.floor( now.format( 'x' ) ), 
+                                       c.lastPingTime );
+        }
+        
+        clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_ALLOWED );
         
         clients.setLastPing( req.query.ip, Math.floor( now.format( 'x' ) ) );
         res.json( { status: 'OK' } );
