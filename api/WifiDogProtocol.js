@@ -50,6 +50,9 @@ protocol.setup = function( app, gateways, clients ) {
     var now = moment();
     var nowInSeconds = Math.floor( now.format( 'x' ) );
     
+    // What does the ap send?
+    console.log( JSON.stringify( req.query ) );
+    
     // Which client?
     var c = clients.get( req.query.ip );
     
