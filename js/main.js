@@ -20,19 +20,20 @@ app.controller('MainCtrl', ['$scope', '$http', '$interval', function ( $scope, $
     
   $scope.showState = function( s, lastPingTime ) {
     var state = [ 'None', 'Active', '', '', '', 'Login', 'Denied' ];
+    var strS = state[ s ];
     var now = Date.now();
     
-    if ( state == 'Login' ) {      
+    if ( strS == 'Login' ) {      
       if (  now > lastPingTime + timeouts.validation ) {
-        state = 'Login Timeout';
+        strS = 'Login Timeout';
       }
-    } else if ( state == 'Active' ) {
+    } else if ( strS == 'Active' ) {
       if ( now > lastPingTime + timeouts.expiration  ) {
-        state = 'Session Timeout';
+        strS = 'Session Timeout';
       }
     }
   
-    return state[ s ];
+    return strS;
   }
   
   $scope.showTime = function( t ) {
