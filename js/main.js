@@ -3,8 +3,8 @@ var app = angular.module('app', ['ui.grid']);
 app.controller('MainCtrl', ['$scope', '$http', '$interval', function ( $scope, $http, $interval ) {
   
   timeouts = {}
-  timeouts.validation = 3000;
-  timeouts.expiration = 10000;
+  timeouts.validation = 300000;
+  timeouts.expiration = 7200000;
   
   $interval( function () {
     $http.get( '/api/clients')
