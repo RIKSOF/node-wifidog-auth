@@ -42,6 +42,9 @@ wifidog.setup = function( app, gateways, clients ) {
       var crypt = require('crypto');
       token = crypt.randomBytes( 64 ).toString('hex');
     
+      // Set the last logout time
+      clients.setLogoutTime( ip, c.lastPingTime );
+    
       // Update the client information
       clients.set( ip, token, req.query.gw_id, Math.floor( now.format( 'x' ) ) );
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_VALIDATION );

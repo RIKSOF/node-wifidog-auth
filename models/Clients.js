@@ -98,20 +98,30 @@ clients.setLastPing = function( client_ip, last_ping ) {
 }
 
 /**
- * Update last login / logout times time.
+ * Update last login time.
  *
  * @param client_ip IP of the client.
  * @param login Update login time.
- * @param last_logout Update last logout time.
  */
-clients.setLoginLogoutTimes = function( client_ip, login, last_logout ) {
+clients.setLoginTime = function( client_ip, login ) {
   var c = clients.list[ client_ip ];
   if (  c ) {
     c.loginTime = login;
-    c.lastLogOutTime = last_logout;
   }
 }
 
+/**
+ * Update last logout time.
+ *
+ * @param client_ip IP of the client.
+ * @param last_logout Update last logout time.
+ */
+clients.setLogoutTime = function( client_ip, last_logout ) {
+  var c = clients.list[ client_ip ];
+  if (  c ) {
+    c.lastLogOutTime = last_logout;
+  }
+}
 
 /**
  * Update email for this client.

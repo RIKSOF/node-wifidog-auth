@@ -102,8 +102,7 @@ google.setup = function( app, gateways, clients ) {
       // Make sure client was not authenticated before. If so, update their
       // logout and login time.
       if ( c.auth != clients.AUTH_TYPES.AUTH_ALLOWED ) {
-        clients.setLoginLogoutTimes( ip, Math.floor( now.format( 'x' ) ), 
-                                     c.lastPingTime );
+        clients.setLoginTime( ip, Math.floor( now.format( 'x' ) ) );
       }
       
       clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );

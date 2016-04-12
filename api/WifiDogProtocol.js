@@ -69,6 +69,10 @@ protocol.setup = function( app, gateways, clients ) {
       case clients.AUTH_TYPES.AUTH_ALLOWED:
         // Did we timeout? We expect user to validate again.
         if ( nowInSeconds > c.lastPingTime + config.timeouts.expiration ) {
+          
+          // Set the last logout time
+          clients.setLogoutTime( req.query.ip, c.lastPingTime );
+          
           clients.setLastPing( req.query.ip, Math.floor( now.format( 'x' ) ) );
           clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_VALIDATION );
           auth = clients.AUTH_TYPES.AUTH_VALIDATION

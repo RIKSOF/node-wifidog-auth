@@ -68,8 +68,7 @@ panel.setup = function( app, gateways, clients ) {
         // Make sure client was not authenticated before. If so, update their
         // logout and login time.
         if ( c.auth != clients.AUTH_TYPES.AUTH_ALLOWED ) {
-          clients.setLoginLogoutTimes( req.query.ip, Math.floor( now.format( 'x' ) ), 
-                                       c.lastPingTime );
+          clients.setLoginTime( req.query.ip, Math.floor( now.format( 'x' )) );
         }
         
         clients.setAuthType( req.query.ip, clients.AUTH_TYPES.AUTH_ALLOWED );
