@@ -50,14 +50,17 @@ protocol.setup = function( app, gateways, clients ) {
     var now = moment();
     var nowInSeconds = Math.floor( now.format( 'x' ) );
     
-    // What does the ap send?
-    console.log( JSON.stringify( req.query ) );
-    
     // Which client?
     var c = clients.get( req.query.ip );
     
     // If we have the client
     if ( c ) {
+      
+      // Is this mac in the allowed list? If so we override the authentication.
+      if ( config.access.allowedMacs[ req.query.mac ] == true ) {
+        c.auth = clients.AUTH_TYPES.AUTH_ALLOWED;
+      }
+      
       auth = c.auth;
       
       switch ( auth ) {

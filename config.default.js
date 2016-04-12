@@ -39,8 +39,7 @@ config.timeouts.expiration = 10800000;
 // Access
 config.access = {}
 config.access.allowedDomain = "@riksof.com";
-config.access.allowedMacs = [ 
-]
+config.access.allowedMacs = {}
 
 // Make the configuration parameters available.
 module.exports = config;
