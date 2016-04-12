@@ -34,9 +34,6 @@ protocol.setup = function( app, gateways, clients ) {
     gateways.set( req.query.gw_id, ip, req.query.sys_uptime, req.query.sys_memfree, 
       req.query.sys_load, req.query.wifidog_uptime, Math.floor( now.format( 'x' ) ) );
     
-    if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
-      console.log( 'Registered gateways: ' + JSON.stringify( gateways.getAll() ));
-    
     res.send( 'Pong' );
   });
   
@@ -87,10 +84,7 @@ protocol.setup = function( app, gateways, clients ) {
       // Save state
       clients.save();
     }
-    
-    if ( config.app.mode.current == config.app.mode.DEVELOPMENT )
-      console.log( 'Registered clients: ' + JSON.stringify( clients.getAll() ));
-    
+     
     console.log( 'IP: ' + req.query.ip + ', Auth: ' + auth );
     
     res.send( 'Auth: ' + auth );
