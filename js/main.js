@@ -25,8 +25,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$interval', function ( $scope, $
     
     if ( t > 0 ) {
       var d = new Date( t ); 
-      str = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear() + ' ' +
-      d.getHours() + ':' + d.getMinutes();    
+      str = ( '0' + d.getDate()).slice(-2) + '-' + ( '0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear() + ' ' +
+       ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);    
     }
     
     return str;
