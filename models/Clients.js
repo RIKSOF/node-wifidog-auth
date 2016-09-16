@@ -25,11 +25,8 @@ clients.AUTH_TYPES = {
  * @param client_ip  IP of the client
  */
 clients.get = function( client_ip ) {
-  if ( typeof clients.list[ client_ip] !== 'undefined' ) {
-    return clients.list[ client_ip ];
-  }
-  
-  return clients.list[ '::ffff:' + client_ip ];
+  client_ip = client_ip.replace( '::ffff:', '' );
+  return clients.list[ client_ip ];
 }
 
 /**
@@ -41,6 +38,8 @@ clients.get = function( client_ip ) {
  * @param last_ping Last we hear from this client.
  */
 clients.set = function( client_ip, token, gw_id, last_ping ) {
+  client_ip = client_ip.replace( '::ffff:', '' );
+  
   if ( !clients.list[ client_ip ] ) {
     clients.list[ client_ip ] = {}
   }
