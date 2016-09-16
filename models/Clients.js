@@ -25,7 +25,11 @@ clients.AUTH_TYPES = {
  * @param client_ip  IP of the client
  */
 clients.get = function( client_ip ) {
-  return clients.list[ client_ip ];
+  if ( typeof clients.list[ client_ip] !== 'undefined' ) {
+    return clients.list[ client_ip ];
+  }
+  
+  return clients.list[ '::ffff:' + client_ip ];
 }
 
 /**
@@ -60,7 +64,7 @@ clients.set = function( client_ip, token, gw_id, last_ping ) {
  * @param last_ping Last we hear from this client.
  */
 clients.setStatistical = function( client_ip, stage, mac, incoming, outgoing, last_ping ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if ( c ) {
     c.clientIP = client_ip;
     c.stage = stage;
@@ -78,7 +82,7 @@ clients.setStatistical = function( client_ip, stage, mac, incoming, outgoing, la
  * @param auth Auth type
  */
 clients.setAuthType = function( client_ip, auth ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if (  c ) {
     c.auth = auth;
   }
@@ -91,7 +95,7 @@ clients.setAuthType = function( client_ip, auth ) {
  * @param last_ping Update last ping.
  */
 clients.setLastPing = function( client_ip, last_ping ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if (  c ) {
     c.lastPingTime = last_ping;
   }
@@ -104,7 +108,7 @@ clients.setLastPing = function( client_ip, last_ping ) {
  * @param login Update login time.
  */
 clients.setLoginTime = function( client_ip, login ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if (  c ) {
     c.loginTime = login;
   }
@@ -117,7 +121,7 @@ clients.setLoginTime = function( client_ip, login ) {
  * @param last_logout Update last logout time.
  */
 clients.setLogoutTime = function( client_ip, last_logout ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if (  c ) {
     c.lastLogOutTime = last_logout;
   }
@@ -130,7 +134,7 @@ clients.setLogoutTime = function( client_ip, last_logout ) {
  * @param email Email
  */
 clients.setEmail = function( client_ip, email, name ) {
-  var c = clients.list[ client_ip ];
+  var c = clients.get( client_ip );
   if (  c ) {
     c.email = email;
     c.name = name;
