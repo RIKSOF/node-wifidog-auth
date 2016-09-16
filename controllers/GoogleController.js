@@ -110,6 +110,19 @@ google.setup = function( app, gateways, clients ) {
       
       // Save changes
       clients.save();
+    } else {
+      
+      // Generate a token for this client
+      var crypt = require('crypto');
+      token = crypt.randomBytes( 64 ).toString('hex');
+    
+      // Update the client information
+      clients.set( ip, token, '', Math.floor( now.format( 'x' ) ) );
+      clients.setAuthType( ip, clients.AUTH_TYPES.AUTH_ALLOWED );
+      clients.setEmail( ip, req.user.emails[0].value, req.user.displayName );
+      
+      // Save changes
+      clients.save();
     }
     
     res.redirect('https://riksof.slack.com');
