@@ -88,7 +88,7 @@ google.setup = function( app, gateways, clients ) {
   function(req, res) {
     
     // Get the client IP
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var ip = req.headers['x-forwarded-for'] || req.ip || req.connection.remoteAddress;
     
     // If we have the client, send its information. Otherwise send information
     // that is generated now.
