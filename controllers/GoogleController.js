@@ -94,11 +94,11 @@ google.setup = function( app, gateways, clients ) {
     // that is generated now.
     var c = clients.get( ip );
     
-    if ( c ) {
-      // Get the moment now and set it for user's time in.
-      var moment = require( 'moment' );
-      var now = moment();
-      
+    // Get the moment now and set it for user's time in.
+    var moment = require( 'moment' );
+    var now = moment();
+    
+    if ( c ) {  
       // Make sure client was not authenticated before. If so, update their
       // logout and login time.
       if ( c.auth != clients.AUTH_TYPES.AUTH_ALLOWED ) {
